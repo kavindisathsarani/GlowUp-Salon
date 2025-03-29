@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowUp Salon - Testimonials</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #9c6644;
+            --secondary: #e9c9a9;
+            --light: #f8f5f1;
+            --dark: #4a3728;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .testimonial {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .star-rating {
+            color: gold;
+        }
+
+
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-link {
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: #865536;
+            border-color: #865536;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .hero {
+            background-image: url('assests/images/pexels-markus-winkler-1430818-18512803.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            padding: 100px 0;
+        }
+
+        .hero-overlay {
+            background-color: rgba(0,0,0,0.4);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">GlowUp Salon</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="customer_salon_service.html">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Customer_Packages.html">Packages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Display_Reviews.html">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item ms-2">
+                    <a class="btn btn-outline-primary" href="#">Sign In</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="hero-overlay">
+                    <h1 class="display-4 fw-bold">Reviews</h1>
+                    <p class="lead">At GlowUp Salon, we believe that beauty is all about confidence and self-care. Your feedback inspires us to provide the best salon experience,
+                        whether it's from luxurious spa treatments to flawless makeovers. Read what our happy customers have to say, or share your own experience to help others discover the magic of GlowUp Salon!</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Testimonials -->
+<section class="container mb-5">
+    <h2 class="text-center mb-4">What Our Clients Say</h2>
+    <div class="row g-4" id="reviewList">
+        <!-- Reviews will be dynamically added here -->
+        <div class="col-md-4">
+            <div class="testimonial">
+                <div class="star-rating mb-2">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"The stylist understood exactly what I wanted. My hair has never looked better!"</p>
+                <div class="d-flex align-items-center mt-3">
+                    <img src="/api/placeholder/50/50" class="rounded-circle me-3" alt="Client">
+                    <div>
+                        <h6 class="mb-0">Sarah Johnson</h6>
+                        <small class="text-muted">Regular Client</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add more static reviews or fetch dynamically -->
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h5>Glamour Salon</h5>
+                <p>Where beauty meets excellence. Our professional team is dedicated to making you look and feel your best.</p>
+                <div class="social-icons">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="col-md-2 mb-4 mb-md-0">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Home</a></li>
+                    <li><a href="#" class="text-white">About Us</a></li>
+                    <li><a href="#" class="text-white">Services</a></li>
+                    <li><a href="#" class="text-white">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h5>Services</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Haircut & Styling</a></li>
+                    <li><a href="#" class="text-white">Color & Highlights</a></li>
+                    <li><a href="#" class="text-white">Manicure & Pedicure</a></li>
+                    <li><a href="#" class="text-white">Facials & Skincare</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Contact Us</h5>
+                <address>
+                    <p class="mb-1"><i class="fas fa-map-marker-alt me-2"></i> 123 Beauty Street, City, State</p>
+                    <p class="mb-1"><i class="fas fa-phone me-2"></i> (123) 456-7890</p>
+                    <p class="mb-1"><i class="fas fa-envelope me-2"></i> info@glamoursalon.com</p>
+                </address>
+            </div>
+        </div>
+        <hr class="mt-4 bg-light">
+        <div class="text-center">
+            <p class="mb-0">&copy; 2025 Glamour Salon. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Fetch reviews from the backend
+    fetch('http://localhost:8080/api/v1/review/getAll', {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('jwt_token')
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            const reviewList = document.getElementById('reviewList');
+            reviewList.innerHTML = ''; // Clear static content
+            data.data.forEach(review => {
+                const stars = '<i class="fas fa-star"></i>'.repeat(review.rating) +
+                    '<i class="far fa-star"></i>'.repeat(5 - review.rating);
+                reviewList.innerHTML += `
+                    <div class="col-md-4">
+                        <div class="testimonial">
+                            <div class="star-rating mb-2">${stars}</div>
+                            <p>"${review.comment}"</p>
+                            <div class="d-flex align-items-center mt-3">
+
+                                <div>
+                                    <h6 class="mb-0">${review.customerName}</h6>
+                                    <small class="text-muted">Recent Client</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        })
+        .catch(error => console.error('Error fetching reviews:', error));
+</script>
+</body>
+
+
+</html>

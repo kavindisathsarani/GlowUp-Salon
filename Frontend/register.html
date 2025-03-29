@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - JWT Auth</title>
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+  />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+          rel="stylesheet"
+  />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    /* General Styles */
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ff6b6b, #ffb400); /* Updated vibrant gradient */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      animation: gradientShift 15s ease infinite;
+      background-size: 200% 200%;
+    }
+
+    /* Auth Container */
+    .auth-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.8s ease-out;
+      backdrop-filter: blur(12px);
+    }
+
+    /* Auth Header */
+    .auth-header h3 {
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: #333;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .auth-header p {
+      font-size: 16px;
+      margin-bottom: 25px;
+      color: #555;
+      text-align: center;
+    }
+
+    /* Form Styling */
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-control {
+      border-radius: 12px;
+      padding: 14px;
+      border: 2px solid #ddd;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .form-control:focus {
+      outline: none;
+      box-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
+      border-color: #ff6b6b;
+      transform: scale(1.02);
+    }
+
+    /* Button */
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6b6b, #ffb400);
+      border: none;
+      padding: 16px 20px;
+      font-weight: 700;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      letter-spacing: 0.8px;
+      color: white;
+      box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
+    }
+
+    /* Social Login */
+    .social-login {
+      margin-top: 25px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .social-btn {
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid #ddd;
+      background: rgba(255, 255, 255, 0.85);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .social-btn:hover {
+      background: #ff6b6b;
+      border-color: #ff3b3b;
+      transform: translateY(-3px);
+    }
+
+    .social-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: #ff6b6b;
+      transition: fill 0.3s ease;
+    }
+
+    .social-btn:hover svg {
+      fill: white;
+    }
+
+  </style>
+</head>
+<body>
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h3>Register</h3>
+    </div>
+    <div class="auth-body">
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="name" class="form-label">Name</label>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Enter your full name"
+                  required
+          />
+        </div>
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Enter your email"
+                  required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="password-field">
+            <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+            />
+            <span
+                    toggle="#password"
+                    class="toggle-password fa fa-eye"
+            ></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword" class="form-label">
+            Confirm Password
+          </label>
+          <div class="password-field">
+            <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    required
+            />
+            <span
+                    toggle="#confirmPassword"
+                    class="toggle-password fa fa-eye"
+            ></span>
+          </div>
+        </div>
+<!--        <div class="form-group">-->
+<!--          <label for="role" class="form-label">Role</label>-->
+<!--          <select class="form-select" id="role" >-->
+<!--            <option value="">Select Role</option>-->
+<!--            <option value="USER">admin</option>-->
+<!--            <option value="ADMIN">user</option>-->
+<!--          </select>-->
+<!--        </div>-->
+        <div class="form-group mb-2">
+          <button type="submit" class="btn btn-primary w-100">
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="auth-footer">
+      <p class="mb-0">
+        Already have an account? <a href="../login.html">Login</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!--<script src="/assets/js/jquery-3.7.1.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Password visibility toggle
+    $(".toggle-password").click(function () {
+      $(this).toggleClass("fa-eye fa-eye-slash");
+      var input = $($(this).attr("toggle"));
+      if (input.attr("type") === "password") {
+        input.attr("type", "text");
+      } else {
+        input.attr("type", "password");
+      }
+    });
+
+    $("#loginForm").on("submit", function (e) {
+      e.preventDefault();
+
+      $.ajax({
+        url: "http://localhost:8080/api/v1/auth/authenticate",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+          email: $("#email").val(),
+          password: $("#password").val(),
+        }),
+        success: function (response) {
+          localStorage.setItem("jwt_token", response.token);
+          $("#loginForm")[0].reset();
+          window.location.href = "index.html";
+        },
+        error: function (xhr, status, error) {
+          alert("Login failed. Please check your credentials.");
+          console.error("Error:", error);
+        },
+      });
+    });
+
+    // -------------------------------- Signup --------------------------------
+    $("#registerForm").on("submit", function (e) {
+      e.preventDefault();
+
+      const password = $("#password").val();
+      const confirmPassword = $("#confirmPassword").val();
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      $.ajax({
+        url: "http://localhost:8080/api/v1/user/register",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+          email: $("#email").val(),
+          password: password,
+          name: $("#name").val(),
+          role: $("#role").val(),
+        }),
+        success: function (response) {
+          alert("Registration successful! Please login.");
+          $("#registerForm")[0].reset();
+          window.location.href = "../register.html";
+        },
+        error: function (xhr, status, error) {
+          alert("Registration failed. Please try again.");
+          console.error("Error:", error);
+          if (xhr.responseJSON && xhr.responseJSON.message) {
+            alert(xhr.responseJSON.message);
+          }
+        },
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

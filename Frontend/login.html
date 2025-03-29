@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - JWT Auth</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: #222;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 35px;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .auth-header h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d64550;
+            margin-bottom: 8px;
+        }
+
+        .auth-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #fdfdfd;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #ff758c;
+            box-shadow: 0 0 0 2px rgba(255, 117, 140, 0.3);
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px 18px;
+            background-color: #d64550;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #c23442;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .auth-footer p {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .auth-footer a {
+            color: #d64550;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+<div class="auth-container">
+    <div class="auth-header">
+        <h3>Welcome Back</h3>
+        <p>Login to access your account</p>
+    </div>
+    <div class="auth-body">
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required />
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <div class="password-field">
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required />
+                    <span toggle="#password" class="toggle-password fa fa-eye"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+    <div class="auth-footer">
+        <p>Don't have an account? <a href="register.html">Register</a></p>
+    </div>
+</div>
+
+<!--<script src="/assets/js/jquery-3.7.1.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".toggle-password").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $(this).prev();
+            if (input.attr("type") === "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+
+        $("#loginForm").on("submit", function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: "http://localhost:8080/api/v1/auth/authenticate",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    email: $("#email").val(),
+                    password: $("#password").val(),
+                }),
+                success: function (response) {
+                    localStorage.setItem("jwt_token", response.data.token);
+                    $("#loginForm")[0].reset();
+                    // window.location.href = "AdminDashboard.html";
+                    // Check if dashboard exists before redirecting
+                    fetch("CustomerDashboard.html")
+                        .then(res => {
+                            if (res.ok) window.location.href = "CustomerDashboard.html";
+                            else window.location.href = "index.html"; // Fallback
+                        })
+                        .catch(() => window.location.href = "index.html");
+
+                  //
+                },
+                error: function (xhr, status, error) {
+                    alert("Login failed. Please check your credentials.");
+                    console.error("Error:", error);
+                },
+            });
+        });
+
+        $("#registerForm").on("submit", function (e) {
+            e.preventDefault();
+
+            const password = $("#password").val();
+            const confirmPassword = $("#confirmPassword").val();
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            $.ajax({
+                url: "http://localhost:8080/api/v1/user/register",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    email: $("#email").val(),
+                    password: password,
+                    name: $("#name").val(),
+                    role: $("#role").val(),
+                }),
+                success: function (response) {
+                    alert("Registration successful! Please login.");
+                    $("#registerForm")[0].reset();
+                    window.location.href = "../register.html";
+                },
+                error: function (xhr, status, error) {
+                    alert("Registration failed. Please try again.");
+                    console.error("Error:", error);
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        alert(xhr.responseJSON.message);
+                    }
+                },
+            });
+        });
+    });
+</script>
