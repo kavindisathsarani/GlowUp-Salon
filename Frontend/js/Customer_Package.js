@@ -1,3 +1,4 @@
+
 // Load salon packages when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Add this style creation code:

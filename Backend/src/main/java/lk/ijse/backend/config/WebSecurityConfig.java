@@ -57,7 +57,16 @@ public class WebSecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html").permitAll()
-                                .requestMatchers("/api/v1/**").authenticated()
+                        // Admin endpoints - require ADMIN role
+                        .requestMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
+
+                        // User endpoints - require USER role
+                        .requestMatchers("/api/v1/user/**").hasAuthority("USER")
+
+                        // All other API endpoints require authentication (no specific role)
+                        .requestMatchers("/api/v1/**").authenticated()
+
+                        // Catch-all for any other request
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

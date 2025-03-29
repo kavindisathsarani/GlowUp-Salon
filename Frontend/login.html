@@ -192,22 +192,36 @@
                     password: $("#password").val(),
                 }),
                 success: function (response) {
+                    // Store the token
                     localStorage.setItem("jwt_token", response.data.token);
-                    $("#loginForm")[0].reset();
-                    // window.location.href = "AdminDashboard.html";
-                    // Check if dashboard exists before redirecting
-                    fetch("CustomerDashboard.html")
-                        .then(res => {
-                            if (res.ok) window.location.href = "CustomerDashboard.html";
-                            else window.location.href = "index.html"; // Fallback
-                        })
-                        .catch(() => window.location.href = "index.html");
 
-                  //
+                    // Add debugging to see what's in the response
+                    console.log("Authentication response:", response);
+                    console.log("User role:", response.data.role);
+
+                    // Reset the form
+                    $("#loginForm")[0].reset();
+
+                    // Redirect based on role
+                    const role = response.data.role.toUpperCase(); // Convert to uppercase
+
+                    console.log("User role after conversion:", role);
+
+                    if (role === "ADMIN") {
+                        console.log("Redirecting to admin dashboard");
+                        window.location.href = "AdminDashboard.html";
+                    } else if (role === "USER") {
+                        console.log("Redirecting to customer dashboard");
+                        window.location.href = "CustomerDashboard.html";
+                    } else {
+                        console.log("Role not recognized, redirecting to index");
+                        window.location.href = "index.html";
+                    }
+
                 },
                 error: function (xhr, status, error) {
+                    console.error("Login error details:", xhr.responseText);
                     alert("Login failed. Please check your credentials.");
-                    console.error("Error:", error);
                 },
             });
         });

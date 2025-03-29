@@ -1,3 +1,4 @@
+
 // Add Package Form Submission
 document.getElementById('addPackageForm').addEventListener('submit', function(event) {
     event.preventDefault();
