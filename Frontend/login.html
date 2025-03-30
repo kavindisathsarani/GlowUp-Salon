@@ -20,22 +20,22 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            background: url('assests/images/pexels-laarkstudio-7446427.jpg') no-repeat center center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            color: #222;
+            /*backdrop-filter: blur(8px);*/
         }
 
         .auth-container {
             width: 100%;
             max-width: 420px;
-            background: white;
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             padding: 35px;
             backdrop-filter: blur(15px);
             transition: all 0.3s ease-in-out;
@@ -54,7 +54,7 @@
         }
 
         .auth-header p {
-            color: #666;
+            color:  #333;
             font-size: 1rem;
         }
 
@@ -72,11 +72,12 @@
         .form-control {
             width: 100%;
             padding: 12px 18px;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             font-size: 1rem;
             transition: all 0.3s ease;
-            background-color: #fdfdfd;
+            background-color: rgba(255, 255, 255, 0.2);
+            color:  #333;
         }
 
         .form-control:focus {
@@ -95,13 +96,13 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: #888;
+            color: #eee;
         }
 
         .btn-primary {
             width: 100%;
             padding: 12px 18px;
-            background-color: #d64550;
+            background: linear-gradient(135deg, #ff6b6b, #ffb400);
             border: none;
             border-radius: 10px;
             color: white;
@@ -111,7 +112,7 @@
         }
 
         .btn-primary:hover {
-            background-color: #c23442;
+            background: linear-gradient(135deg, #e63e3e, #ff9000);
         }
 
         .auth-footer {
@@ -120,12 +121,12 @@
         }
 
         .auth-footer p {
-            color: #555;
+            color: #fff;
             font-size: 0.9rem;
         }
 
         .auth-footer a {
-            color: #d64550;
+            color: #ff6b6b;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
