@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - GlowUp Salon</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary: #9c6644;    /* Warm brown */
+            --secondary: #e9c9a9;  /* Light peach */
+            --light: #f8f5f1;      /* Off-white */
+            --dark: #4a3728;       /* Deep brown */
+            --accent: #d4a373;     /* Soft gold */
+        }
+
+        body {
+          /*  background-color: var(--light);
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);*/
+            background-image: url('assests/images/pexels-laarkstudio-7446427.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Add overlay to ensure text readability */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /*background: rgba(248, 245, 241, 0.7); !* Semi-transparent off-white overlay *!*/
+            z-index: 1;
+        }
+
+        /* Ensure content stays above overlay */
+        .container {
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 40px;
+            /* Glassmorphism effect */
+            background: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+            backdrop-filter: blur(10px); /* Background blur */
+            -webkit-backdrop-filter: blur(10px); /* Safari support */
+            box-shadow: 0 8px 32px 0 rgba(76, 55, 40, 0.2);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-field {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: var(--light);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-field:hover {
+            background-color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .profile-label {
+            font-weight: 600;
+            color: var(--primary);
+            margin-right: 10px;
+            min-width: 80px;
+            display: inline-block;
+        }
+
+        .profile-value {
+            color: var(--dark);
+            font-weight: 400;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 10px 25px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .btn-logout {
+            background-color: var(--dark);
+            border-color: var(--dark);
+            padding: 10px 25px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #6c4f3d;
+            border-color: #6c4f3d;
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            color: var(--dark);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar" id="avatar">
+                <!-- Will be filled with user initials via JS -->
+            </div>
+            <h2>My Profile</h2>
+        </div>
+        <div id="profile-content">
+            <div class="profile-field">
+                <span class="profile-label">Name:</span>
+                <span id="user-name" class="profile-value">Loading...</span>
+            </div>
+            <div class="profile-field">
+                <span class="profile-label">Email:</span>
+                <span id="user-email" class="profile-value">Loading...</span>
+            </div>
+           <!-- <div class="profile-field">
+                <span class="profile-label">Role:</span>
+                <span id="user-role" class="profile-value">Loading...</span>
+            </div>-->
+            <div class="text-center mt-4 d-flex justify-content-center gap-3">
+                <button id="edit-profile" class="btn btn-primary">
+                    <i class="fas fa-edit me-2"></i>Edit Profile
+                </button>
+                <button id="logout-btn" class="btn btn-logout text-white">
+                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if JWT token exists before fetching profile
+        const token = localStorage.getItem('jwt_token');
+        if (!token || token.split('.').length !== 3) {
+            // If token is missing or malformed, show message and redirect
+            document.getElementById('profile-content').innerHTML =
+                '<div class="alert alert-warning text-center">' +
+                'You aren\'t logged in. Redirecting to login page...' +
+                '</div>';
+            setTimeout(() => {
+                window.location.href = 'login.html'; // Redirect after 2 seconds
+            }, 2000);
+            return;
+        }
+
+        // Fetch user profile data if token is present
+        fetchUserProfile();
+
+        // Add event listener to edit button
+        document.getElementById('edit-profile').addEventListener('click', function() {
+            alert('Edit profile functionality to be implemented');
+            // window.location.href = '/edit-profile';
+        });
+
+        // Add logout functionality
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('jwt_token');
+            window.location.href = 'login.html';
+        });
+    });
+
+    function fetchUserProfile() {
+        fetch('http://localhost:8080/api/v1/profile', {
+            method: 'GET',
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("jwt_token")
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch profile');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('user-name').textContent = data.name;
+                document.getElementById('user-email').textContent = data.email;
+                // document.getElementById('user-role').textContent = data.role;
+
+                if (data.name) {
+                    const initials = getInitials(data.name);
+                    document.getElementById('avatar').textContent = initials;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching profile:', error);
+                document.getElementById('profile-content').innerHTML =
+                    '<div class="alert alert-danger">Failed to load profile. Please try again later.</div>';
+            });
+    }
+
+    function getInitials(name) {
+        return name.split(' ')
+            .map(part => part.charAt(0))
+            .join('')
+            .toUpperCase()
+            .substring(0, 2);
+    }
+</script>
+
+</body>
+</html>
