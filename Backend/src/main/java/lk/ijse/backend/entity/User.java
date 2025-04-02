@@ -1,11 +1,11 @@
 package lk.ijse.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -23,6 +23,8 @@ public class User implements Serializable {
     private String name;
     private String role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserReview> reviews = new ArrayList<>();
     public User() {
     }
 
@@ -32,6 +34,15 @@ public class User implements Serializable {
         this.password = password;
         this.name = name;
         this.role = role;
+        this.reviews=reviews;
+    }
+
+    public List<UserReview> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<UserReview> reviews) {
+        this.reviews = reviews;
     }
 
     public UUID getUid() {

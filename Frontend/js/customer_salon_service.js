@@ -103,7 +103,7 @@ function fetchSalonServices() {
             <p class="card-title">Duration: <span>${service.durationMinutes}</span></p>
                         <p class="card-title price-label">Rs. <span>${service.price}</span></p>
 
-            <a href="#" class="btn btn-primary">View</a>
+            <a href="Customer_Appointments.html" class="btn btn-primary">Book Now</a>
 <!--            <a href="#" class="btn btn-danger disabled">Delete</a>-->
         </div>
     </div>
