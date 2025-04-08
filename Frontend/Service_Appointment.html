@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Appointment Management - GlowUp Salon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #f3f4f6;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="mb-4 text-center">Service Appointments</h2>
+    <form id="appointmentForm">
+        <input type="hidden" id="appointmentId">
+        <div class="mb-3">
+            <label for="userEmail" class="form-label">User Email</label>
+            <input type="email" class="form-control" id="userEmail" required>
+        </div>
+        <div class="mb-3">
+            <label for="serviceName" class="form-label">Service Name</label>
+            <select class="form-select" id="serviceName" required>
+                <option value="">Select a Service</option>
+                <option value="Hair fixing">Hair fixing</option>
+                <option value="Hair Cutting">Hair Cutting</option>
+                <option value="Hair Highlights">Hair Highlights</option>
+                <option value="Beard trimming">Beard trimming</option>
+                <option value="Nail Painting">Nail Painting</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price (in USD)</label>
+            <input type="number" class="form-control" id="price" required step="0.01">
+        </div>
+        <div class="mb-3">
+            <label for="appointmentDate" class="form-label">Booking Date</label>
+            <input type="date" class="form-control" id="appointmentDate" required>
+        </div>
+        <div class="mb-3">
+            <label for="appointmentTime" class="form-label">Appointment Time</label>
+            <input type="time" class="form-control" id="appointmentTime" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" required>
+                <option value="PENDING">PENDING</option>
+                <option value="CONFIRMED">CONFIRMED</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Appointment</button>
+    </form>
+    <hr>
+    <h4>Appointment List</h4>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>User Email</th>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Booking Date</th>
+            <th>Appointment Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="appointmentTableBody"></tbody>
+    </table>
+</div>
+<script>
+    function loadAppointments() {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/serviceAppointment/getAll",
+            type: "GET",
+            headers: { "Authorization": "Bearer " + localStorage.getItem("jwt_token") },
+            success: function(response) {
+                let rows = "";
+                response.data.forEach(appointment => {
+                    console.log("Appointment ID: ", appointment.serviceAppointmentId);
+                    rows += `<tr>
+            <td>${appointment.userEmail}</td>
+            <td>${appointment.serviceName}</td>
+            <td>${appointment.price}</td>
+            <td>${appointment.bookingDate}</td>
+            <td>${appointment.appointmentTime}</td>
+            <td>${appointment.status}</td>
+            <td>
+                <button class='btn btn-warning btn-sm' onclick='editAppointment(${JSON.stringify(appointment)})'>Edit</button>
+                <button class='btn btn-danger btn-sm' onclick='deleteAppointment(${appointment.serviceAppointmentId})'>Delete</button>
+            </td>
+        </tr>`;
+                });
+                $("#appointmentTableBody").html(rows);
+            },
+            error: function(xhr) {
+                console.error("Error loading appointments:", xhr.responseText);
+            }
+        });
+    }
+
+    function saveAppointment() {
+        let appointment = {
+            userEmail: $("#userEmail").val(),
+            serviceName: $("#serviceName").val(),
+            price: parseFloat($("#price").val()),
+            bookingDate: $("#appointmentDate").val(),
+            appointmentTime: $("#appointmentTime").val(),
+            status: $("#status").val()
+        };
+
+        $.ajax({
+            url: "http://localhost:8080/api/v1/serviceAppointment/save",
+            type: "POST",
+            headers: { "Authorization": "Bearer " + localStorage.getItem("jwt_token") },
+            contentType: "application/json",
+            data: JSON.stringify(appointment),
+            success: function() {
+                alert("Appointment saved successfully!");
+                loadAppointments();
+                $("#appointmentForm")[0].reset();
+            },
+            error: function(xhr) {
+                console.error("Error saving appointment:", xhr.responseText);
+            }
+        });
+    }
+
+    function editAppointment(appointment) {
+        $("#appointmentId").val(appointment.appointmentId); // Changed from appointment.id to appointment.appointmentId
+        $("#userEmail").val(appointment.userEmail);
+        $("#serviceName").val(appointment.serviceName);
+        $("#price").val(appointment.price);
+        $("#appointmentDate").val(appointment.bookingDate);
+        $("#appointmentTime").val(appointment.appointmentTime);
+        $("#status").val(appointment.status);
+        $("#appointmentForm button[type='submit']").text("Update Appointment"); // Change button text
+    }
+
+    function updateAppointment() {
+        let appointment = {
+            appointmentId: $("#appointmentId").val(), // Include the ID for update
+            userEmail: $("#userEmail").val(),
+            serviceName: $("#serviceName").val(),
+            price: parseFloat($("#price").val()),
+            bookingDate: $("#appointmentDate").val(),
+            appointmentTime: $("#appointmentTime").val(),
+            status: $("#status").val()
+        };
+
+        $.ajax({
+            url: "http://localhost:8080/api/v1/serviceAppointment/update",
+            type: "PUT",
+            headers: { "Authorization": "Bearer " + localStorage.getItem("jwt_token") },
+            contentType: "application/json",
+            data: JSON.stringify(appointment),
+            success: function() {
+                alert("Appointment updated successfully!");
+                loadAppointments();
+                $("#appointmentForm")[0].reset();
+                $("#appointmentForm button[type='submit']").text("Submit Appointment"); // Reset button text
+            },
+            error: function(xhr) {
+                console.error("Error updating appointment:", xhr.responseText);
+            }
+        });
+    }
+
+    function deleteAppointment(id) {
+        console.log("Deleting appointment with ID: " + id);  // Log the ID to confirm it's being passed correctly
+
+        if (confirm("Are you sure you want to delete this appointment?")) {
+            $.ajax({
+                url: `http://localhost:8080/api/v1/serviceAppointment/delete/${id}`,
+                type: "DELETE",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("jwt_token")
+                },
+                success: function(response) {
+                    alert("Appointment deleted successfully!");
+                    loadAppointments(); // Reload appointments after deletion
+                },
+                error: function(xhr) {
+                    console.error("Error deleting appointment:", xhr.responseText);
+                }
+            });
+        }
+    }
+
+
+    $(document).ready(function() {
+        loadAppointments();
+        $("#appointmentForm").on("submit", function(e) {
+            e.preventDefault();
+            if ($("#appointmentId").val()) { // If appointmentId exists, it's an update
+                updateAppointment();
+            } else { // Otherwise, it's a new appointment
+                saveAppointment();
+            }
+        });
+    });
+</script>
+</body>
+</html>

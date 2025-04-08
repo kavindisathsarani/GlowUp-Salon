@@ -9,10 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface SalonServiceRepo extends JpaRepository<SalonService, UUID> {
-
-
-
-
-
-
+    SalonService findByName(String name);
 }
