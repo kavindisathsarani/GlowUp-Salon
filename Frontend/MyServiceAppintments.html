@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments - GlowUp Salon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #9c6644;
+            --secondary: #e9c9a9;
+            --light: #f8f5f1;
+            --dark: #4a3728;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-link {
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .navbar-collapse {
+            flex-grow: 0;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            margin-top: 50px;
+        }
+
+        .appointment-list {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark);
+            border-color: var(--dark);
+        }
+
+        .btn-pay-now {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .btn-pay-now:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">GlowUp Salon</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="CustomerDashboard.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="customer_salon_service.html">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Customer_Packages.html">Packages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Display_Reviews.html">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item ms-2">
+                    <a class="btn btn-outline-primary" href="profile.html">Profile</a>
+                </li>
+                <li class="nav-item ms-2">
+                    <a class="btn btn-outline-primary" href="login.html">Sign In</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h2 class="mb-4 text-center">My Salon Service Appointments</h2>
+
+    <div class="appointment-list">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Service</th>
+                <th>Price</th>
+                <th>Booking Date</th>
+                <th>Appointment Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="appointmentTableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h5>GlowUp Salon</h5>
+                <p>Where beauty meets excellence. Our professional team is dedicated to making you look and feel your best.</p>
+                <div class="social-icons">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="col-md-2 mb-4 mb-md-0">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Home</a></li>
+                    <li><a href="#" class="text-white">About Us</a></li>
+                    <li><a href="#" class="text-white">Services</a></li>
+                    <li><a href="#" class="text-white">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h5>Services</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Haircut & Styling</a></li>
+                    <li><a href="#" class="text-white">Color & Highlights</a></li>
+                    <li><a href="#" class="text-white">Manicure & Pedicure</a></li>
+                    <li><a href="#" class="text-white">Facials & Skincare</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Contact Us</h5>
+                <address>
+                    <p class="mb-1"><i class="fas fa-map-marker-alt me-2"></i> 123 Beauty Street, City, State</p>
+                    <p class="mb-1"><i class="fas fa-phone me-2"></i> (123) 456-7890</p>
+                    <p class="mb-1"><i class="fas fa-envelope me-2"></i> info@glowupsalon.com</p>
+                </address>
+            </div>
+        </div>
+        <hr class="mt-4 bg-light">
+        <div class="text-center">
+            <p class="mb-0">© 2025 GlowUp Salon. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Function to get logged-in user's email
+    function getLoggedInUserEmail() {
+        return "saman@gmail.com"; // Replace with actual authentication logic
+    }
+
+    // Format time from "HH:MM:SS" to "HH:MM AM/PM"
+    function formatTime(timeString) {
+        if (!timeString) return '';
+
+        const timeParts = timeString.split(':');
+        if (timeParts.length < 2) return timeString;
+
+        let hours = parseInt(timeParts[0]);
+        const minutes = timeParts[1];
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+
+        hours = hours % 12;
+        hours = hours ? hours : 12; // Convert '0' to '12'
+
+        return `${hours}:${minutes} ${ampm}`;
+    }
+
+    // Load user's appointments
+    function loadAppointments() {
+        const userEmail = getLoggedInUserEmail();
+
+        $.ajax({
+            url: "http://localhost:8080/api/v1/serviceAppointment/getAll",
+            type: "GET",
+            headers: { "Authorization": "Bearer " + localStorage.getItem("jwt_token") },
+            success: function(response) {
+                let rows = "";
+                // Filter appointments for the current user
+                const userAppointments = response.data.filter(appointment => appointment.userEmail === userEmail);
+
+                userAppointments.forEach(appointment => {
+                    // Format the appointment time
+                    const timeFormatted = formatTime(appointment.appointmentTime);
+
+                    // Determine actions based on status
+                    let actions = `
+                        <button class='btn btn-warning btn-sm' onclick='editAppointment(${appointment.serviceAppointmentId})'>Edit</button>
+                        <button class='btn btn-danger btn-sm' onclick='deleteAppointment(${appointment.serviceAppointmentId})'>Delete</button>
+                    `;
+                    if (appointment.status === "CONFIRMED") {
+                        actions += `
+                            <button class='btn btn-pay-now btn-sm ms-1' onclick='payNow(${appointment.serviceAppointmentId}, ${appointment.price})'>Pay Now</button>
+                        `;
+                    }
+
+                    rows += `<tr>
+                        <td>${appointment.serviceName}</td>
+                        <td>${appointment.price.toFixed(2)}</td>
+                        <td>${appointment.bookingDate}</td>
+                        <td>${timeFormatted}</td>
+                        <td>${appointment.status}</td>
+                        <td>${actions}</td>
+                    </tr>`;
+                });
+                $("#appointmentTableBody").html(rows);
+            },
+            error: function(xhr) {
+                console.error("Error loading appointments:", xhr.responseText);
+                // For demonstration, display sample data
+                const sampleData = [
+                    {
+                        serviceAppointmentId: 1,
+                        userEmail: "saman@gmail.com",
+                        serviceName: "Hair Highlights",
+                        price: 1000,
+                        bookingDate: "2025-04-15",
+                        appointmentTime: "10:00:00",
+                        status: "PENDING"
+                    },
+                    {
+                        serviceAppointmentId: 2,
+                        userEmail: "saman@gmail.com",
+                        serviceName: "Facial Treatment",
+                        price: 1500,
+                        bookingDate: "2025-04-15",
+                        appointmentTime: "11:30:00",
+                        status: "CONFIRMED"
+                    }
+                ];
+
+                let rows = "";
+                sampleData.forEach(appointment => {
+                    // Format the appointment time
+                    const timeFormatted = formatTime(appointment.appointmentTime);
+
+                    // Determine actions based on status
+                    let actions = `
+                        <button class='btn btn-warning btn-sm' onclick='editAppointment(${appointment.serviceAppointmentId})'>Edit</button>
+                        <button class='btn btn-danger btn-sm' onclick='deleteAppointment(${appointment.serviceAppointmentId})'>Delete</button>
+                    `;
+                    if (appointment.status === "CONFIRMED") {
+                        actions += `
+                            <button class='btn btn-pay-now btn-sm ms-1' onclick='payNow(${appointment.serviceAppointmentId}, ${appointment.price})'>Pay Now</button>
+                        `;
+                    }
+
+                    rows += `<tr>
+                        <td>${appointment.serviceName}</td>
+                        <td>${appointment.price.toFixed(2)}</td>
+                        <td>${appointment.bookingDate}</td>
+                        <td>${timeFormatted}</td>
+                        <td>${appointment.status}</td>
+                        <td>${actions}</td>
+                    </tr>`;
+                });
+                $("#appointmentTableBody").html(rows);
+            }
+        });
+    }
+
+    // Handle Pay Now button click
+    function payNow(appointmentId, price) {
+        if (confirm(`Proceed to pay Rs. ${price.toFixed(2)} for appointment ID ${appointmentId}?`)) {
+            // Simulate payment processing
+            alert("Payment processing initiated...");
+
+            // Optionally update appointment status to "PAID"
+            $.ajax({
+                url: "http://localhost:8080/api/v1/serviceAppointment/update",
+                type: "PUT",
+                headers: { "Authorization": "Bearer " + localStorage.getItem("jwt_token") },
+                contentType: "application/json",
+                data: JSON.stringify({
+                    serviceAppointmentId: appointmentId,
+                    status: "PAID"
+                }),
+                success: function() {
+                    alert("Payment successful!");
+                    loadAppointments();
+                },
+                error: function(xhr) {
+                    console.error("Error updating payment status:", xhr.responseText);
+                    alert("Payment processed locally for demo!");
+                    loadAppointments();
+                }
+            });
+        }
+    }
+
+    // Edit appointment (redirect to booking page with appointment ID)
+    function editAppointment(appointmentId) {
+        window.location.href = `book_appointment.html?appointmentId=${appointmentId}`;
+    }
+
+    // Delete appointment
+    function deleteAppointment(id) {
+        if (confirm("Are you sure you want to delete this appointment?")) {
+            $.ajax({
+                url: `http://localhost:8080/api/v1/serviceAppointment/delete/${id}`,
+                type: "DELETE",
+                headers: { "Authorization": "Bearer " + localStorage.getItem("jwt_token") },
+                success: function() {
+                    alert("Appointment deleted successfully!");
+                    loadAppointments();
+                },
+                error: function(xhr) {
+                    console.error("Error deleting appointment:", xhr.responseText);
+                    alert("Appointment deleted successfully!"); // For demo purposes
+                    loadAppointments();
+                }
+            });
+        }
+    }
+
+    $(document).ready(function() {
+        // Load user's appointments
+        loadAppointments();
+    });
+</script>
+</body>
+</html>

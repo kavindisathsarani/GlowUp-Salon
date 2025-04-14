@@ -2,7 +2,9 @@ package lk.ijse.backend.config;
 
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -68,6 +70,21 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private Claims getClaimsFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(secretKey.getBytes()).parseClaimsJws(token).getBody();
+    }
+
+    /*testing purpose.remove if needed*/
+    public Claims getAllClaimsFromToken(String token) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException e) {
+            throw new IllegalArgumentException("JWT token is expired", e);
+        } catch (MalformedJwtException e) {
+            throw new IllegalArgumentException("Invalid JWT token", e);
+        }
     }
 
 }
