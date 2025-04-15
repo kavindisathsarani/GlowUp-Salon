@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - GlowUp Salon</title>
+    <title>Admin Package Appointments - GlowUp Salon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -150,10 +150,10 @@
                     <a class="nav-link" href="AdminDashboard.html">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="Admin_Service_Appointment.html">ServiceBookings</a>
+                    <a class="nav-link active" href="Admin_Package_Appointments.html">PackageBookings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Admin_Package_Appointments.html">PackageBookings</a>
+                    <a class="nav-link" href="Admin_Service_Appointment.html">ServiceBookings</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="SalonService.html">Services</a>
@@ -161,7 +161,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="admin_package.html">Packages</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="Admin_Review.html">Reviews</a>
                 </li>
@@ -175,7 +174,7 @@
 
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Appointment Management</h2>
+        <h2>Package Appointment Management</h2>
         <div>
             <button class="btn btn-outline-primary me-2" id="refreshBtn">
                 <i class="fas fa-sync-alt me-1"></i> Refresh
@@ -188,7 +187,7 @@
         <div class="filter-section">
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Search by email or service...">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search by email or package...">
                 </div>
                 <div class="col-md-3 mb-3">
                     <input type="date" class="form-control" id="dateFilter">
@@ -212,11 +211,12 @@
                 <tr>
                     <th>ID</th>
                     <th>User Email</th>
-                    <th>Service</th>
+                    <th>Package</th>
                     <th>Price (Rs.)</th>
                     <th>Date</th>
                     <th>Time</th>
                     <th>Status</th>
+                    <th>Notes</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -245,7 +245,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateStatusModalLabel">Update Appointment Status</h5>
+                <h5 class="modal-title" id="updateStatusModalLabel">Update Package Appointment Status</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -256,8 +256,8 @@
                         <input type="email" class="form-control" id="userEmailModal" readonly>
                     </div>
                     <div class="mb-3">
-                        <label for="serviceNameModal" class="form-label">Service</label>
-                        <input type="text" class="form-control" id="serviceNameModal" readonly>
+                        <label for="packageNameModal" class="form-label">Package</label>
+                        <input type="text" class="form-control" id="packageNameModal" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="statusModal" class="form-label">Status</label>
@@ -309,7 +309,7 @@
         </div>
         <hr class="mt-4 bg-light">
         <div class="text-center">
-            <p class="mb-0">&copy; 2025 GlowUp Salon. All rights reserved.</p>
+            <p class="mb-0">© 2025 GlowUp Salon. All rights reserved.</p>
         </div>
     </div>
 </footer>
@@ -333,7 +333,7 @@
         // Initialize Bootstrap modal
         updateStatusModal = new bootstrap.Modal(document.getElementById('updateStatusModal'));
 
-        // Load appointments when the page loads
+        // Load package appointments when the page loads
         loadAppointments();
 
         // Set up event listeners
@@ -376,10 +376,10 @@
         });
     }
 
-    // Load all appointments from the API
+    // Load all package appointments from the API
     function loadAppointments() {
         $.ajax({
-            url: "http://localhost:8080/api/v1/serviceAppointment/getAll",
+            url: "http://localhost:8080/api/v1/packageAppointment/getAll",
             type: "GET",
             headers: { "Authorization": "Bearer " + localStorage.getItem("jwt_token") },
             success: function(response) {
@@ -388,12 +388,12 @@
                     filterAppointments();
                 } else {
                     console.error("Invalid response format:", response);
-                    displayError("Failed to load appointments. Invalid data format.");
+                    displayError("Failed to load package appointments. Invalid data format.");
                 }
             },
             error: function(xhr) {
-                console.error("Error loading appointments:", xhr.responseText);
-                displayError("Failed to load appointments. Please check your connection.");
+                console.error("Error loading package appointments:", xhr.responseText);
+                displayError("Failed to load package appointments. Please check your connection.");
 
                 // Load sample data for demonstration
                 loadSampleData();
@@ -405,49 +405,54 @@
     function loadSampleData() {
         appointments = [
             {
-                serviceAppointmentId: 1,
+                packageAppointmentId: 1,
                 userEmail: "saman@gmail.com",
-                serviceName: "Hair Highlights",
-                price: 1000,
+                packageName: "Bridal Bliss Package",
+                price: 5000,
                 bookingDate: "2025-04-15",
                 appointmentTime: "10:00:00",
-                status: "PENDING"
+                status: "PENDING",
+                notes: "Extra hair styling requested"
             },
             {
-                serviceAppointmentId: 2,
+                packageAppointmentId: 2,
                 userEmail: "priya@gmail.com",
-                serviceName: "Facial Treatment",
-                price: 1500,
+                packageName: "Spa Retreat Package",
+                price: 3000,
                 bookingDate: "2025-04-15",
                 appointmentTime: "11:30:00",
-                status: "CONFIRMED"
+                status: "CONFIRMED",
+                notes: ""
             },
             {
-                serviceAppointmentId: 3,
+                packageAppointmentId: 3,
                 userEmail: "anusha@gmail.com",
-                serviceName: "Manicure & Pedicure",
-                price: 2000,
+                packageName: "Luxury Pamper Package",
+                price: 4000,
                 bookingDate: "2025-04-16",
                 appointmentTime: "14:00:00",
-                status: "COMPLETED"
+                status: "COMPLETED",
+                notes: "Customer satisfied"
             },
             {
-                serviceAppointmentId: 4,
+                packageAppointmentId: 4,
                 userEmail: "kumar@gmail.com",
-                serviceName: "Men's Haircut",
-                price: 800,
+                packageName: "Men's Grooming Package",
+                price: 2500,
                 bookingDate: "2025-04-16",
                 appointmentTime: "16:30:00",
-                status: "CANCELLED"
+                status: "CANCELLED",
+                notes: "Cancelled due to schedule conflict"
             },
             {
-                serviceAppointmentId: 5,
+                packageAppointmentId: 5,
                 userEmail: "nirmala@gmail.com",
-                serviceName: "Hair Coloring",
-                price: 2500,
+                packageName: "Total Makeover Package",
+                price: 6000,
                 bookingDate: "2025-04-17",
                 appointmentTime: "09:00:00",
-                status: "PENDING"
+                status: "PENDING",
+                notes: "Allergies to certain products"
             }
         ];
         filterAppointments();
@@ -470,7 +475,7 @@
             if (currentSearchTerm) {
                 const searchTerm = currentSearchTerm.toLowerCase();
                 return appointment.userEmail.toLowerCase().includes(searchTerm) ||
-                    appointment.serviceName.toLowerCase().includes(searchTerm);
+                    appointment.packageName.toLowerCase().includes(searchTerm);
             }
 
             return true;
@@ -490,7 +495,7 @@
         let tableContent = '';
 
         if (appointmentsToShow.length === 0) {
-            tableContent = `<tr><td colspan="8" class="text-center">No appointments found</td></tr>`;
+            tableContent = `<tr><td colspan="9" class="text-center">No package appointments found</td></tr>`;
         } else {
             appointmentsToShow.forEach(appointment => {
                 // Generate status badge based on the status value
@@ -515,20 +520,24 @@
                 // Format the appointment time for display
                 const timeFormatted = formatTime(appointment.appointmentTime);
 
+                // Handle notes (display empty string if null/undefined)
+                const notes = appointment.notes || '';
+
                 tableContent += `
                     <tr>
-                        <td>${appointment.serviceAppointmentId}</td>
+                        <td>${appointment.packageAppointmentId}</td>
                         <td>${appointment.userEmail}</td>
-                        <td>${appointment.serviceName}</td>
+                        <td>${appointment.packageName}</td>
                         <td>${appointment.price.toFixed(2)}</td>
                         <td>${appointment.bookingDate}</td>
                         <td>${timeFormatted}</td>
                         <td>${statusBadge}</td>
+                        <td>${notes}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary me-1" onclick="openUpdateStatusModal(${appointment.serviceAppointmentId})">
+                            <button class="btn btn-sm btn-primary me-1" onclick="openUpdateStatusModal(${appointment.packageAppointmentId})">
                                 <i class="fas fa-edit"></i> Status
                             </button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteAppointment(${appointment.serviceAppointmentId})">
+                            <button class="btn btn-sm btn-danger" onclick="deleteAppointment(${appointment.packageAppointmentId})">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
@@ -538,7 +547,7 @@
         }
 
         $('#appointmentTableBody').html(tableContent);
-        $('#totalAppointments').text(`Showing ${startIndex + 1} to ${endIndex} of ${filteredAppointments.length} appointments`);
+        $('#totalAppointments').text(`Showing ${startIndex + 1} to ${endIndex} of ${filteredAppointments.length} package appointments`);
     }
 
     // Format time from "HH:MM:SS" to "HH:MM AM/PM"
@@ -603,22 +612,22 @@
 
     // Open the update status modal for a specific appointment
     function openUpdateStatusModal(appointmentId) {
-        selectedAppointment = appointments.find(a => a.serviceAppointmentId === appointmentId);
+        selectedAppointment = appointments.find(a => a.packageAppointmentId === appointmentId);
 
         if (selectedAppointment) {
-            $('#appointmentId').val(selectedAppointment.serviceAppointmentId);
+            $('#appointmentId').val(selectedAppointment.packageAppointmentId);
             $('#userEmailModal').val(selectedAppointment.userEmail);
-            $('#serviceNameModal').val(selectedAppointment.serviceName);
+            $('#packageNameModal').val(selectedAppointment.packageName);
             $('#statusModal').val(selectedAppointment.status);
             $('#notesModal').val(selectedAppointment.notes || '');
 
             updateStatusModal.show();
         } else {
-            alert('Appointment not found');
+            alert('Package appointment not found');
         }
     }
 
-    // Update the status of an appointment
+    // Update the status of a package appointment
     function updateAppointmentStatus() {
         if (!selectedAppointment) return;
 
@@ -627,9 +636,9 @@
 
         // Prepare the data for the API
         const updatedAppointment = {
-            serviceAppointmentId: selectedAppointment.serviceAppointmentId,
+            packageAppointmentId: selectedAppointment.packageAppointmentId,
             userEmail: selectedAppointment.userEmail,
-            serviceName: selectedAppointment.serviceName,
+            packageName: selectedAppointment.packageName,
             price: selectedAppointment.price,
             bookingDate: selectedAppointment.bookingDate,
             appointmentTime: selectedAppointment.appointmentTime,
@@ -638,54 +647,54 @@
         };
 
         $.ajax({
-            url: "http://localhost:8080/api/v1/serviceAppointment/update",
+            url: "http://localhost:8080/api/v1/packageAppointment/update",
             type: "PUT",
             headers: { "Authorization": "Bearer " + localStorage.getItem("jwt_token") },
             contentType: "application/json",
             data: JSON.stringify(updatedAppointment),
             success: function(response) {
-                alert("Appointment status updated successfully!");
+                alert("Package appointment status updated successfully!");
                 updateStatusModal.hide();
                 loadAppointments(); // Reload all appointments
             },
             error: function(xhr) {
-                console.error("Error updating appointment:", xhr.responseText);
+                console.error("Error updating package appointment:", xhr.responseText);
                 // For demonstration, update locally
-                const index = appointments.findIndex(a => a.serviceAppointmentId === selectedAppointment.serviceAppointmentId);
+                const index = appointments.findIndex(a => a.packageAppointmentId === selectedAppointment.packageAppointmentId);
                 if (index !== -1) {
                     appointments[index].status = newStatus;
                     appointments[index].notes = notes;
-                    alert("Appointment status updated successfully!");
+                    alert("Package appointment status updated successfully!");
                     updateStatusModal.hide();
                     filterAppointments();
                 } else {
-                    alert("Failed to update appointment status.");
+                    alert("Failed to update package appointment status.");
                 }
             }
         });
     }
 
-    // Delete an appointment
+    // Delete a package appointment
     function deleteAppointment(appointmentId) {
-        if (confirm("Are you sure you want to delete this appointment?")) {
+        if (confirm("Are you sure you want to delete this package appointment?")) {
             $.ajax({
-                url: `http://localhost:8080/api/v1/serviceAppointment/delete/${appointmentId}`,
+                url: `http://localhost:8080/api/v1/packageAppointment/delete/${appointmentId}`,
                 type: "DELETE",
                 headers: { "Authorization": "Bearer " + localStorage.getItem("jwt_token") },
                 success: function() {
-                    alert("Appointment deleted successfully!");
+                    alert("Package appointment deleted successfully!");
                     loadAppointments(); // Reload all appointments
                 },
                 error: function(xhr) {
-                    console.error("Error deleting appointment:", xhr.responseText);
+                    console.error("Error deleting package appointment:", xhr.responseText);
                     // For demonstration, delete locally
-                    const index = appointments.findIndex(a => a.serviceAppointmentId === appointmentId);
+                    const index = appointments.findIndex(a => a.packageAppointmentId === appointmentId);
                     if (index !== -1) {
                         appointments.splice(index, 1);
-                        alert("Appointment deleted successfully!");
+                        alert("Package appointment deleted successfully!");
                         filterAppointments();
                     } else {
-                        alert("Failed to delete appointment.");
+                        alert("Failed to delete package appointment.");
                     }
                 }
             });
@@ -697,7 +706,6 @@
         alert(message);
     }
 </script>
-
 
 </body>
 </html>

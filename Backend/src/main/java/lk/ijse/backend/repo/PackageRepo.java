@@ -9,10 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface PackageRepo extends JpaRepository<Packages, UUID> {
-
-
-
-
-
-
+    Packages findByName(String name);
 }
