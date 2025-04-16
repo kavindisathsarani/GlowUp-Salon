@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Salon Services</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Contact Us - GlowUp Salon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #9c6644;
@@ -33,8 +34,15 @@
             color: var(--dark);
             font-weight: 500;
         }
-        .navbar-collapse {
-            flex-grow: 0;
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: #865536;
+            border-color: #865536;
         }
 
         .btn-outline-primary {
@@ -47,10 +55,53 @@
             color: white;
         }
 
+        .contact-section {
+            padding: 60px 0;
+        }
+
+        .contact-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        .contact-form .form-control {
+            border-radius: 5px;
+            border: 1px solid var(--secondary);
+            padding: 10px;
+        }
+
+        .contact-form .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(156, 102, 68, 0.25);
+        }
+
+        .contact-info {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
 
         footer {
             background-color: var(--dark);
             color: white;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary);
         }
     </style>
 </head>
@@ -65,7 +116,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="CustomerDashboard.html">Home</a>
+                    <a class="nav-link" href="CustomerDashboard.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="customer_salon_service.html">Services</a>
@@ -83,10 +134,10 @@
                     <a class="nav-link" href="Display_Reviews.html">Reviews</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link active" href="#">Contact</a>
                 </li>
                 <li class="nav-item ms-2">
-                    <a class="btn btn-outline-primary" href="profile.html">Profile</a>
+                    <a class="btn btn-outline-primary" href="Profile.html">Profile</a>
                 </li>
                 <li class="nav-item ms-2">
                     <a class="btn btn-outline-primary" href="login.html">Sign Out</a>
@@ -96,25 +147,55 @@
     </div>
 </nav>
 
-
-<div class="container mt-4">
-    <!-- Filter Input -->
-    <div class="mb-3">
-        <input type="text" class="form-control" id="filterInput" placeholder="Filter by service name" onkeyup="filterSalonServices()">
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container">
+        <h2 class="text-center mb-5">Get in Touch</h2>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="contact-card">
+                    <h4 class="mb-4">Send Us a Message</h4>
+                    <form class="contact-form">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="contact-info">
+                    <h4 class="mb-4">Contact Information</h4>
+                    <p class="mb-3"><i class="fas fa-map-marker-alt"></i> 123 Beauty Street, City, State</p>
+                    <p class="mb-3"><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p class="mb-3"><i class="fas fa-envelope"></i> info@glowupsalon.com</p>
+                    <p class="mb-4"><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 7:00 PM</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Salon Services Container -->
-    <div class="row" id="serviceContainer">
-        <!-- Dynamic cards will be inserted here -->
-    </div>
-</div>
+</section>
 
 <!-- Footer -->
 <footer class="py-4">
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4 mb-md-0">
-                <h5>Glamour Salon</h5>
+                <h5>GlowUp Salon</h5>
                 <p>Where beauty meets excellence. Our professional team is dedicated to making you look and feel your best.</p>
                 <div class="social-icons">
                     <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
@@ -125,9 +206,9 @@
             <div class="col-md-2 mb-4 mb-md-0">
                 <h5>Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white">Home</a></li>
+                    <li><a href="index.html" class="text-white">Home</a></li>
                     <li><a href="#" class="text-white">About Us</a></li>
-                    <li><a href="#" class="text-white">Services</a></li>
+                    <li><a href="customer_salon_service.html" class="text-white">Services</a></li>
                     <li><a href="#" class="text-white">Contact</a></li>
                 </ul>
             </div>
@@ -145,22 +226,17 @@
                 <address>
                     <p class="mb-1"><i class="fas fa-map-marker-alt me-2"></i> 123 Beauty Street, City, State</p>
                     <p class="mb-1"><i class="fas fa-phone me-2"></i> (123) 456-7890</p>
-                    <p class="mb-1"><i class="fas fa-envelope me-2"></i> info@glamoursalon.com</p>
+                    <p class="mb-1"><i class="fas fa-envelope me-2"></i> info@glowupsalon.com</p>
                 </address>
             </div>
         </div>
         <hr class="mt-4 bg-light">
         <div class="text-center">
-            <p class="mb-0">&copy; 2025 Glamour Salon. All rights reserved.</p>
+            <p class="mb-0">© 2025 GlowUp Salon. All rights reserved.</p>
         </div>
     </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="js/customer_salon_service.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-
 </html>
