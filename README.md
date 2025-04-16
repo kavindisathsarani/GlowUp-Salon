@@ -25,7 +25,7 @@ GlowUp Salon Appointment System is a full-stack web application designed to stre
 - **Customer Profiles**: Access customer's booking and payment history to understand preferences and trends.
 - **Manage Inventory**: Track inventory such as shampoos, hair dyes, and other products to ensure efficient stock management.
 
-## Screenshots
+## Key Features Images
 
 ### Customer Dashboard
 ![Home1.png](Frontend/assests/Images/customerDashboard.png)
