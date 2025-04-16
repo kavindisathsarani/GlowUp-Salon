@@ -51,20 +51,65 @@ GlowUp Salon Appointment System is a full-stack web application designed to stre
 ## Video Demonstration
 Watch the video demonstration of the application here: [YouTube Link](https://youtu.be/uczaOAsKdk4?si=3ATlOPjPkqFqOQMV)
 
-## Setup Instructions
+## Installation Instructions
 
-### Prerequisites
+### Clone the repository:
 
-- **Java Development Kit (JDK) 17 or higher**
-- **Node.js and npm**
-- **MySQL Database**
-- **Maven**
+```bash
+git clone https://github.com/kavindisathsarani/GlowUp-Salon.git
+```
 
-### Backend Setup
+Import the project into your preferred IDE (e.g., IntelliJ IDEA, Eclipse).
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/kavindisathsarani/GlowUp-Salon.git
+---
+
+### Configure the Database:
+
+- Update database connection settings in the `application.properties` file located in `src/main/resources/`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/glowup_salon
+spring.datasource.username=your_db_username
+spring.datasource.password=your_db_password
+```
+
+---
+
+### Run the Application:
+
+- Build and run the Spring Boot application using Maven:
+
+```bash
+mvn clean install
+mvn spring-boot:run
+```
+
+
+### Access the Frontend:
+
+- Open the `login.html` file from the frontend folder in your web browser.
+- If using AJAX, ensure your requests are pointed to the correct backend endpoint (e.g., `http://localhost:8080/api/...`).
+
+## Authentication
+
+- The application uses **JWT (JSON Web Token)** for secure user authentication.
+- Upon successful login, the server issues a JWT token, which must be included in the headers of protected API requests.
+- Example header format:
+
+```
+Authorization: Bearer <your_jwt_token>
+```
+
+---
+
+## Technologies Used
+
+- **Frontend**: HTML, CSS, Bootstrap, JavaScript, AJAX
+- **Backend**: Spring Boot, Spring Security (JWT), Spring Data JPA
+- **Database**: MySQL
+- **Authentication**: JWT (JSON Web Token)
+
+---
 
 ## Author
 Developed by **Kavindi Sathsarani**.
