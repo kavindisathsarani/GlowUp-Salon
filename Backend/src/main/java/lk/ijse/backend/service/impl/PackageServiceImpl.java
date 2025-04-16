@@ -36,6 +36,8 @@ public class PackageServiceImpl implements PackageService {
     @Override
     @Transactional
     public PackageDTO<String> save(PackageDTO<String> packageDTO, MultipartFile file) {
+        //base64Image is a variable name for the folder that contains the images that are saved to database
+
         String base64Image = imageUtil.saveImage(ImageType.PACKAGE, file); // Assuming ImageType.PACKAGE exists
         logger.info("Base64 image: {}", base64Image);
 

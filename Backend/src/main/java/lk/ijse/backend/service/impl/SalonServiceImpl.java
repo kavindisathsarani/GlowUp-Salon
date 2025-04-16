@@ -34,6 +34,8 @@ public class SalonServiceImpl implements SalonServicesService {
     @Override
     @Transactional
     public SalonServiceDTO<String> save(SalonServiceDTO<String> salonServiceDTO, MultipartFile file) {
+        //base64Image is a variable name for the folder that contains the images that are saved to database
+
         String base64Image = imageUtil.saveImage(ImageType.SALONSERVICE, file);
         logger.info("Base64 image: {}", base64Image);
 
