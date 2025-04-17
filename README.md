@@ -39,6 +39,9 @@ GlowUp Salon Appointment System is a full-stack web application designed to stre
 ### Customer’s Service Appointments Page
 ![Login.png](Frontend/assests/Images/customer-appointment.png)
 
+### Payment Gateway
+![Login.png](Frontend/assests/Images/payment-gateway.png)
+
 ### Admin Dashboard
 ![Login.png](Frontend/assests/Images/Admin-dashboard.png)
 
