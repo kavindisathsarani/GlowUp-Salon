@@ -14,7 +14,7 @@ GlowUp Salon Appointment System is a full-stack web application designed to stre
 - **Browse and Select Services and Packages**: Explore a variety of salon services, such as haircuts, styling, manicures, and more.
 - **Book Appointments**: Choose from available time slots and book appointments based on preferences.
 - **Appointment Approval**: Await approval from the admin before the appointment is confirmed.
-- **Payment Process**: Make secure payments through an integrated payment gateway after admin approval.
+- **Payment Process**: Make secure payments through an integrated payment gateway(PayHere) after admin approval.
 - **View Booking Details**: Check the status of bookings, including approval and payment status.
 - **Leave Ratings and Reviews**: Rate the service and leave reviews based on the experience.
 
@@ -52,7 +52,7 @@ GlowUp Salon Appointment System is a full-stack web application designed to stre
 ![Login.png](Frontend/assests/Images/admin-appointment.png)
 
 ## Video Demonstration
-Watch the video demonstration of the application here: [YouTube Link](https://youtu.be/uczaOAsKdk4?si=3ATlOPjPkqFqOQMV)
+Watch the video demonstration of the application here: [YouTube Link](https://youtu.be/P8EgOeIKuuU?si=9Gl9JULRbBE838Fs)
 
 ## Installation Instructions
 
