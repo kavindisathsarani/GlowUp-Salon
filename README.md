@@ -17,13 +17,14 @@ GlowUp Salon Appointment System is a full-stack web application designed to stre
 - **Payment Process**: Make secure payments through an integrated payment gateway(PayHere) after admin approval.
 - **View Booking Details**: Check the status of bookings, including approval and payment status.
 - **Leave Ratings and Reviews**: Rate the service and leave reviews based on the experience.
-
+- **Email Notifications**: Receive email updates for key events such as appointment confirmation from admin.
 ### For Admins
 
 - **Manage Services**: Add, update, or remove available services to keep offerings up-to-date.
 - **Approve or Modify Appointments**: Approve, reject, or modify customer appointments based on availability.
 - **Customer Profiles**: Access customer's booking and payment history to understand preferences and trends.
 - **Manage Inventory**: Track inventory such as shampoos, hair dyes, and other products to ensure efficient stock management.
+- **Email Notifications**: Automatically send email notifications to customers upon appointment confirmation.
 
 ## Key Features Images
 
@@ -39,7 +40,10 @@ GlowUp Salon Appointment System is a full-stack web application designed to stre
 ### Customer’s Service Appointments Page
 ![Login.png](Frontend/assests/Images/customer-appointment.png)
 
-### Payment Gateway
+### Email Notification Upon Admin Approval
+![Login.png](Frontend/assests/Images/email-notification.jpeg)
+
+### Payment Gateway(PayHere)
 ![Login.png](Frontend/assests/Images/payment-gateway.png)
 
 ### Admin Dashboard
